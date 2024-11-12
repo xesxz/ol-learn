@@ -26,6 +26,9 @@ import {
   Tile
 } from "ol/layer";
 
+
+
+
 const map = new Map({
     target: 'map',
     layers: [
@@ -58,17 +61,20 @@ const map = new Map({
 // });
 
 
-const tiffSource = new GeoTIFF({
-  sources: [{
-    // url: '/POSTGRES_ECMFC1D__TEM_1_0_20240526120000_00000_GLB_1_2.TIF',
-    url:"/GDFS_NMC_AMEL_OEFS_TMP01_ACHN_LNO_G005_20241112080007201_103_2_1.tif",
-    allowFullFile: true  // 允许加载完整文件而不是范围请求
-    // url:"/TEM_4326.tif"
-  }],
-});
-
-
-
+const singleBand = {
+  color: [
+    'interpolate',
+    ['linear'],
+    ['band', 1],
+    0, [0, 0, 0, 0],
+    1, [15, 84, 10],
+    2,  [163, 204, 89],
+    3,  [128, 179, 71],
+    4,  [97, 150, 54],
+    5,  [15, 84, 10],
+    6,  [15, 84, 10],
+  ],
+};
 
 
 const tmpLegend = [
@@ -96,6 +102,29 @@ const tmpLegend = [
   [100, [71, 14, 0]],
   [1000, [255, 255, 0]],
 ];
+const tiffSource = new GeoTIFF({
+  normalize: false,
+
+  // convertToRGB: true, // 将多波段数据转换为 RGB
+  // bands: [1], // 选择波段
+  sources: [{
+    // url: '/POSTGRES_ECMFC1D__TEM_1_0_20240526120000_00000_GLB_1_2.TIF',
+    // url:"/GDFS_NMC_AMEL_OEFS_TMP01_ACHN_LNO_G005_20241112080007201_103_2_1.tif",
+    url:"/NAFP_GRID_ANA_REALTIME_HOR_CHN__2TEM_103_2_20241112090000_0_0.tif",
+    // allowFullFile: true  // 允许加载完整文件而不是范围请求
+    // url:"/TEM_4326.tif"
+  }],
+  style:{
+    color:getColor(tmpLegend)
+  },
+});
+
+
+
+
+console.log(getColor(tmpLegend));
+
+
 
 // console.log(getColor(tmpLegend));
 
@@ -103,21 +132,6 @@ const tmpLegend = [
 
 
 
-
-// const singleBand = {
-//   color: [
-//     'interpolate',
-//     ['linear'],
-//     ['band', 1],
-//     0, [0, 0, 0, 0],
-//     1, [15, 84, 10],
-//     2,  [163, 204, 89],
-//     3,  [128, 179, 71],
-//     4,  [97, 150, 54],
-//     5,  [15, 84, 10],
-//     6,  [15, 84, 10],
-//   ],
-// };
 
 
 
@@ -136,9 +150,10 @@ function getColor(config) {
 
 
 
+
 const tiffLayer = new WebGLTileLayer({
   source: tiffSource,
-  style:getColor(tmpLegend),
+
 });
 
 map.addLayer(tiffLayer);
