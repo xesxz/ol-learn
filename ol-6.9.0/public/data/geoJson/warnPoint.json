@@ -1,0 +1,16 @@
+{
+  "code": 200,
+  "message": "操作成功",
+  "data": [{
+    "longitude": 104.049412,
+    "latitude": 30.666579,
+    "Type": "预警",
+    "flg": "预警",
+    "id": "185",
+    "title": "YG-031901",
+    "background": "#FF4341",
+    "imageName": "/image/gis/warning/01.png",
+    "imageSize": 1.4
+    }
+  ]
+}

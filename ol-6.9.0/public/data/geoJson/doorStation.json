@@ -1,0 +1,237 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    104.05148,
+                    30.7798
+                ]
+            },
+            "properties": {
+                "lsh": 182,
+                "czbh": "7",
+                "mc": "大丰新站",
+                "dsbm": "510100",
+                "qhmc": "新都区",
+                "dz": "四川省成都市新都区大丰街道华太路3号",
+                "czlx": "czlb001",
+                "ll": "",
+                "ljz": "",
+                "jhz": "",
+                "jd": 104.05148,
+                "wd": 30.7798,
+                "geom": "",
+                "yskzjbz": "",
+                "sjtbzt": "",
+                "tbsj": "2022-03-23T00:00:00.000Z",
+                "guid": "7"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    104.15244,
+                    30.63997
+                ]
+            },
+            "properties": {
+                "lsh": 220,
+                "czbh": "107",
+                "mc": "赖家坡站",
+                "dsbm": "510100",
+                "qhmc": "成华区",
+                "dz": "四川省成都市成华区天鹅路西50米",
+                "czlx": "czlb001",
+                "ll": "",
+                "ljz": "",
+                "jhz": "",
+                "jd": 104.15244,
+                "wd": 30.63997,
+                "geom": "",
+                "yskzjbz": "",
+                "sjtbzt": "",
+                "tbsj": "2022-03-23T00:00:00.000Z",
+                "guid": "107"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    103.94751,
+                    30.99954
+                ]
+            },
+            "properties": {
+                "lsh": 222,
+                "czbh": "8",
+                "mc": "彭县门站",
+                "dsbm": "510100",
+                "qhmc": "彭州市",
+                "dz": "四川省成都市彭州市龙塔路72号",
+                "czlx": "czlb001",
+                "ll": "",
+                "ljz": "",
+                "jhz": "",
+                "jd": 103.94751,
+                "wd": 30.99954,
+                "geom": "",
+                "yskzjbz": "",
+                "sjtbzt": "",
+                "tbsj": "2022-03-23T00:00:00.000Z",
+                "guid": "8"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    104.13518,
+                    30.77588
+                ]
+            },
+            "properties": {
+                "lsh": 142,
+                "czbh": "77",
+                "mc": "三河场站",
+                "dsbm": "510100",
+                "qhmc": "新都区",
+                "dz": "四川省成都市新都区蜀龙大道南段双江大院西南侧约260米",
+                "czlx": "czlb001",
+                "ll": "",
+                "ljz": "",
+                "jhz": "",
+                "jd": 104.13518,
+                "wd": 30.77588,
+                "geom": "",
+                "yskzjbz": "",
+                "sjtbzt": "",
+                "tbsj": "2022-03-23T00:00:00.000Z",
+                "guid": "77"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    104.04278,
+                    30.73701
+                ]
+            },
+            "properties": {
+                "lsh": 199,
+                "czbh": "25",
+                "mc": "西金站",
+                "dsbm": "510100",
+                "qhmc": "金牛区",
+                "dz": "四川省成都市金牛区金丰路6号",
+                "czlx": "czlb001",
+                "ll": "",
+                "ljz": "",
+                "jhz": "",
+                "jd": 104.04278,
+                "wd": 30.73701,
+                "geom": "",
+                "yskzjbz": "",
+                "sjtbzt": "",
+                "tbsj": "2022-03-23T00:00:00.000Z",
+                "guid": "25"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    104.17302,
+                    30.65055
+                ]
+            },
+            "properties": {
+                "lsh": 202,
+                "czbh": "3",
+                "mc": "十陵门站",
+                "dsbm": "510100",
+                "qhmc": "龙泉驿区",
+                "dz": "四川省成都市龙泉驿区石灵下街58号",
+                "czlx": "czlb001",
+                "ll": "",
+                "ljz": "",
+                "jhz": "",
+                "jd": 104.17302,
+                "wd": 30.65055,
+                "geom": "",
+                "yskzjbz": "",
+                "sjtbzt": "",
+                "tbsj": "2022-03-23T00:00:00.000Z",
+                "guid": "3"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    104.12856,
+                    30.64199
+                ]
+            },
+            "properties": {
+                "lsh": 174,
+                "czbh": "1",
+                "mc": "市一门站",
+                "dsbm": "510100",
+                "qhmc": "成华区",
+                "dz": "四川省成都市成华区御风二路16号（成都市体育运动学校背后）",
+                "czlx": "czlb001",
+                "ll": "",
+                "ljz": "",
+                "jhz": "",
+                "jd": 104.12856,
+                "wd": 30.64199,
+                "geom": "",
+                "yskzjbz": "",
+                "sjtbzt": "",
+                "tbsj": "2022-03-23T00:00:00.000Z",
+                "guid": "1"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    103.89054,
+                    30.77447
+                ]
+            },
+            "properties": {
+                "lsh": 196,
+                "czbh": "526",
+                "mc": "西区门站",
+                "dsbm": "510100",
+                "qhmc": "郫都区",
+                "dz": "四川省成都市郫都区南北大道与西源大道交叉路口往东约190米",
+                "czlx": "czlb001",
+                "ll": "",
+                "ljz": "",
+                "jhz": "",
+                "jd": 103.89054,
+                "wd": 30.77447,
+                "geom": "",
+                "yskzjbz": "",
+                "sjtbzt": "",
+                "tbsj": "2022-03-23T00:00:00.000Z",
+                "guid": "526"
+            }
+        }
+    ]
+}

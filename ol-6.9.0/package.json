@@ -1,0 +1,19 @@
+{
+  "name": "ol-vite",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "vite --port 5419",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.6.7"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "ol": "^6.9.0",
+    "ol-ext": "^4.0.1",
+    "ol-mapbox-style": "^12.3.5",
+    "proj4": "^2.8.0"
+  }
+}

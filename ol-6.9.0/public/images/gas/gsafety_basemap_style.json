@@ -1,0 +1,212 @@
+{
+  "version": 8,
+  "metadata": {"maputnik:renderer": "mbgljs"},
+  "sources": {
+    "gsafety_basemap": {
+      "type": "vector",
+      "tiles": [
+        "http://172.19.1.34:9999/geoserver/gwc/service/tms/1.0.0/gsafety%3Agsafety_basemap@EPSG%3A4326@pbf/{z}/{x}/{y}.pbf"
+      ],
+      "scheme": "tms",
+      "minZoom": 0,
+      "maxZoom": 14
+    }
+  },
+  "sprite": "https://maputnik.github.io/osm-liberty/sprites/osm-liberty",
+  "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key={key}",
+  "layers": [
+    {
+      "id": "province_line",
+      "type": "fill",
+      "source": "gsafety_basemap",
+      "source-layer": "province_line",
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgb(4,19,36)"}
+    },
+    {
+      "id": "province_line_buffer",
+      "type": "fill",
+      "source": "gsafety_basemap",
+      "source-layer": "province_line_buffer",
+      "paint": {
+        "fill-color": [
+          "step",
+          ["get", "xpar"],
+          "rgba(54, 69, 86, 0.95)",
+          5,
+          "rgba(54, 69, 86, 0.85)",
+          15,
+          "rgba(54, 69, 86, 0.75)",
+          25,
+          "rgba(54, 69, 86, 0.65)",
+          35,
+          "rgba(54, 69, 86, 0.55)",
+          45,
+          "rgba(54, 69, 86, 0.45)",
+          55,
+          "rgba(54, 69, 86, 0.35)",
+          65,
+          "rgba(54, 69, 86, 0.25)",
+          75,
+          "rgba(54, 69, 86, 0.15)",
+          85,
+          "rgba(54, 69, 86, 0.05)",
+          95,
+          "rgba(54, 69, 86, 0.05)"
+        ]
+      }
+    },
+    {
+      "id": "city_line_buffer",
+      "type": "fill",
+      "source": "gsafety_basemap",
+      "source-layer": "city_line_buffer",
+      "paint": {
+        "fill-color": [
+          "step",
+          ["get", "x"],
+          "rgba(54, 69, 86, 0.95)",
+          5,
+          "rgba(54, 69, 86, 0.85)",
+          15,
+          "rgba(54, 69, 86, 0.75)",
+          25,
+          "rgba(54, 69, 86, 0.65)",
+          35,
+          "rgba(54, 69, 86, 0.55)",
+          45,
+          "rgba(54, 69, 86, 0.45)",
+          55,
+          "rgba(54, 69, 86, 0.35)",
+          65,
+          "rgba(54, 69, 86, 0.25)",
+          75,
+          "rgba(54, 69, 86, 0.15)",
+          85,
+          "rgba(54, 69, 86, 0.05)",
+          95,
+          "rgba(54, 69, 86, 0.05)"
+        ]
+      }
+    },
+    {
+      "id": "lake",
+      "type": "fill",
+      "source": "gsafety_basemap",
+      "source-layer": "lake",
+      "paint": {"fill-color": "rgb(17,43,88)"}
+    },
+    {
+      "id": "rivers",
+      "type": "fill",
+      "source": "gsafety_basemap",
+      "source-layer": "rivers",
+      "paint": {"fill-color": "rgb(17,43,88)"}
+    },
+    {
+      "id": "greenland",
+      "type": "fill",
+      "source": "gsafety_basemap",
+      "source-layer": "greenland",
+      "paint": {"fill-color": "rgb(13,27,56)"}
+    },
+    {
+      "id": "groundroad",
+      "type": "line",
+      "source": "gsafety_basemap",
+      "source-layer": "groundroad",
+      "paint": {
+        "line-color": [
+          "match",
+          ["get", "Type"],
+          "420100",
+          "rgb(23,90,160)",
+          "420200",
+          "rgb(23,90,160)",
+          "430200",
+          "rgb(23,90,160)",
+          "430501",
+          "rgb(13,48,96)",
+          "420300",
+          "rgb(13,48,96)",
+          "430502",
+          "rgb(13,48,96)",
+          "440000",
+          "rgb(13,48,96)",
+          "440300",
+          "rgb(13,48,96)",
+          "430503",
+          "rgb(13,48,96)",
+          "430504",
+          "rgb(13,48,96)",
+          "black"
+        ],
+        "line-width": [
+          "match",
+          ["get", "Type"],
+          "420100",
+          3,
+          "420200",
+          3,
+          "430200",
+          3,
+          "430501",
+          2,
+          "420300",
+          2,
+          "430502",
+          2,
+          "440000",
+          2,
+          "440300",
+          2,
+          "430503",
+          2,
+          "430504",
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "highway",
+      "type": "line",
+      "source": "gsafety_basemap",
+      "source-layer": "highway",
+      "maxzoom": 24,
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "line-color": "rgb(23,90,160)",
+        "line-width": {"stops": [[6, 3], [10, 3], [11, 3], [12, 7], [18, 24]]}
+      }
+    },
+    {
+      "id": "railway",
+      "type": "line",
+      "source": "gsafety_basemap",
+      "source-layer": "railway",
+      "paint": {"line-color": "rgb(23,52,121)"}
+    },
+    {
+      "id": "elevated",
+      "type": "line",
+      "source": "gsafety_basemap",
+      "source-layer": "elevated",
+      "paint": {"line-color": "rgb(23,90,160)", "line-width": 2}
+    },
+    {
+      "id": "cityroad",
+      "type": "line",
+      "source": "gsafety_basemap",
+      "source-layer": "cityroad"
+    },
+    {
+      "id": "highway_label",
+      "type": "symbol",
+      "source": "gsafety_basemap",
+      "source-layer": "highway_label",
+      "layout": {"symbol-placement": "line-center", "text-field": "Name"}
+    }
+  ],
+  "id": "s6je2y7zn"
+}

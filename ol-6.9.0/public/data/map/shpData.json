@@ -1,0 +1,422 @@
+{
+    "status": 200,
+    "message": "操作成功",
+    "shpData": [
+        {          
+            "monitor_4_1": [
+                {
+                    "id": "monitor_4",
+                    "file": "F:\\成都项目\\shp数据\\监控视频点位.shp",
+                    "pointDisplayMode": 2,
+                    "pointImage": "D:\\gis-images\\chengdu\\icon_video.png",
+                    "pointContentRange": 500,
+                    "pointRange": [
+                        1,
+                        100000
+                    ],
+                    "pointTextContentFieldName": "equipcode",
+                    "offset": [
+                        0,
+                        0,
+                        500
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "facilities_3": [
+                {
+                    "id": "facilities_3",
+                    "file": "F:\\成都项目\\设施\\管道燃气经营企业.shp",
+                    "pointDisplayMode": 2,
+                    "pointImage": "D:\\gis-images\\chengdu\\experience.png",
+                    "pointContentRange": 500,
+                    "pointRange": [
+                        1,
+                        100000
+                    ],
+                    "pointTextContentFieldName": "企业名",
+                    "offset": [
+                        0,
+                        0,
+                        500
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "facilities_4": [
+                {
+                    "id": "facilities_4",
+                    "file": "F:\\成都项目\\设施\\液化气充装站.shp",
+                    "pointDisplayMode":2,
+                    "pointImage": "D:\\gis-images\\chengdu\\gasStation.png",
+                    "pointContentRange": 500,
+                    "pointRange": [
+                        1,
+                        100000
+                    ],
+                    "pointTextContentFieldName": "mc",
+                    "offset": [
+                        0,
+                        0,
+                        500
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "facilities_5": [
+                {
+                    "id": "facilities_5",
+                    "file": "F:\\成都项目\\设施\\CNGLNG.shp",
+                    "pointDisplayMode": 2,
+                    "pointImage": "D:\\gis-images\\chengdu\\experience.png",
+                    "pointContentRange": 500,
+                    "pointRange": [
+                        1,
+                        100000
+                    ],
+                    "pointTextContentFieldName": "mc",
+                    "offset": [
+                        0,
+                        0,
+                        500
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "defender": [
+                {
+                    "id": "defender",
+                    "file": "F:\\成都项目\\危险源防护目标\\防护目标.shp",
+                    "pointDisplayMode": 0,
+                    "pointImage": "D:\\gis-images\\chengdu\\icon_defence.png ",
+                    "pointContentRange": 500,
+                    "pointRange": [
+                        1,
+                        100000
+                    ],
+                    "pointTextContentFieldName": "wxymc",
+                    "offset": [
+                        0,
+                        0,
+                        500
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "emergency": [
+                {
+                    "id": "emergency",
+                    "file": "F:\\成都项目\\shp数据\\救援队伍.shp",
+                    "pointDisplayMode": 0,
+                    "pointImage": "D:\\gis-images\\chengdu\\icon_team.png",
+                    "pointContentRange": 500,
+                    "pointRange": [
+                        1,
+                        100000
+                    ],
+                    "pointTextContentFieldName": "name",
+                    "offset": [
+                        0,
+                        0,
+                        500
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "risk_2": [
+                {
+                    "id": "risk_2",
+                    "file": "F:\\成都项目\\院落\\院落.shp",
+                    "polygonColorFieldName": "RGB",
+                    "polygonStyle": 0,
+                    "polygonDefaultHeight": 500,
+                    "defaultColor": [65,105,225, 1],
+                    "offset": [0, 0, 0],
+                    "rotation": [0, 0, 0],
+                    "scale": [1, 1, 1]
+                }
+            ],
+            "hiddenDanger_1": [
+                {
+                    "id": "hiddenDanger_1",
+                    "file": "F:\\成都项目\\shp数据\\风险点.shp",
+                    "pointDisplayMode": 2,
+                    "pointImage": "D:\\gis-images\\chengdu\\risk\\02.png",
+                    "pointContentRange": 500,
+                    "pointRange": [
+                        1,
+                        100000
+                    ],
+                    "pointTextContentFieldName": "",
+                    "offset": [
+                        0,
+                        0,
+                        500
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "shelter": [
+                {
+                    "id": "shelter",
+                    "file": "F:\\成都项目\\shp数据\\避难场所.shp",
+                    "pointDisplayMode": 2,
+                    "pointImage": "D:\\gis-images\\chengdu\\shelter.png",
+                    "pointContentRange": 500,
+                    "pointRange": [
+                        1,
+                        100000
+                    ],
+                    "pointTextContentFieldName": "name",
+                    "offset": [
+                        0,
+                        0,
+                        500
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "vehicle": [
+                {
+                    "id": "vehicle",
+                    "file": "F:\\成都项目\\shp数据\\救援车辆.shp",
+                    "pointDisplayMode": 2,
+                    "pointImage": "D:\\gis-images\\chengdu\\vehicle.png",
+                    "pointContentRange": 500,
+                    "pointRange": [
+                        1,
+                        100000
+                    ],
+                    "pointTextContentFieldName": "GUID",
+                    "offset": [
+                        0,
+                        0,
+                        500
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "mz": [
+                {
+                    "id": "mz",
+                    "file": "F:\\成都项目\\设施\\门站.shp",
+                    "pointDisplayMode": 2,
+                    "pointImage": "D:\\gis-images\\chengdu\\mz.png",
+                    "pointContentRange": 500,
+                    "pointRange": [
+                        1,
+                        100000
+                    ],
+                    "pointTextContentFieldName": "type",
+                    "offset": [
+                        0,
+                        0,
+                        500
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "cpz": [            
+                {
+                    "id": "cpz",
+                    "file": "F:\\成都项目\\设施\\储配站.shp",
+                    "pointDisplayMode": 2,
+                    "pointImage": "D:\\gis-images\\chengdu\\cpz.png",
+                    "pointContentRange": 500,
+                    "pointRange": [
+                        1,
+                        100000
+                    ],
+                    "pointTextContentFieldName": "type",
+                    "offset": [
+                        0,
+                        0,
+                        500
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "jm": [            
+                {
+                    "id": "jm",
+                    "file": "F:\\成都项目\\shp数据\\居民.shp",
+                    "pointDisplayMode": 2,
+                    "pointImage": "D:\\gis-images\\chengdu\\monitor\\jm.png",
+                    "pointContentRange": 500,
+                    "pointRange": [
+                        1,
+                        100000
+                    ],
+                    "pointTextContentFieldName": "",
+                    "offset": [
+                        0,
+                        0,
+                        500
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "fjm": [            
+                {
+                    "id": "fjm",
+                    "file": "F:\\成都项目\\shp数据\\非居民.shp",
+                    "pointDisplayMode": 2,
+                    "pointImage": "D:\\gis-images\\chengdu\\monitor\\monitor.png",
+                    "pointContentRange": 500,
+                    "pointRange": [
+                        1,
+                        100000
+                    ],
+                    "pointTextContentFieldName": "",
+                    "offset": [
+                        0,
+                        0,
+                        500
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ],
+            "monitor_1": [            
+                {
+                    "id": "monitor_1",
+                    "file": "F:\\成都项目\\监测设备\\防三方监测数据.shp",
+                    "polylineDefaultThickness ": 10,
+                    "defaultColor": [65,105,225, 1],
+                    "offset": [
+                        0,
+                        0,
+                        540
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scale": [
+                        1,
+                        1,
+                        1
+                    ]
+                }
+            ]
+
+        }
+    ]
+}

@@ -1,0 +1,69 @@
+{
+  "msg": "success",
+  "code": 200,
+  "data": [
+      {
+          "TEM_Max": "20.4",
+          "Weather_Max": "多云",
+          "Weather_Min": "阴",
+          "TEM_Min": "13.2",
+          "WIN_S": "0",
+          "WIN_D": "0",
+          "RHU": "0"
+      },
+      {
+          "TEM_Max": "18.5",
+          "Weather_Max": "阴",
+          "Weather_Min": "小雨",
+          "TEM_Min": "13.7",
+          "WIN_S": "0",
+          "WIN_D": "0",
+          "RHU": "0"
+      },
+      {
+          "TEM_Max": "18.6",
+          "Weather_Max": "阴",
+          "Weather_Min": "小雨",
+          "TEM_Min": "13.3",
+          "WIN_S": "0",
+          "WIN_D": "0",
+          "RHU": "0"
+      },
+      {
+          "TEM_Max": "19.3",
+          "Weather_Max": "小雨",
+          "Weather_Min": "小雨",
+          "TEM_Min": "14",
+          "WIN_S": "0",
+          "WIN_D": "0",
+          "RHU": "0"
+      },
+      {
+          "TEM_Max": "18.3",
+          "Weather_Max": "小雨",
+          "Weather_Min": "小雨",
+          "TEM_Min": "14.7",
+          "WIN_S": "0",
+          "WIN_D": "0",
+          "RHU": "0"
+      },
+      {
+          "TEM_Max": "18.4",
+          "Weather_Max": "多云",
+          "Weather_Min": "小雨",
+          "TEM_Min": "15",
+          "WIN_S": "0",
+          "WIN_D": "0",
+          "RHU": "0"
+      },
+      {
+          "TEM_Max": "17.1",
+          "Weather_Max": "小雨",
+          "Weather_Min": "小雨",
+          "TEM_Min": "15.1",
+          "WIN_S": "0",
+          "WIN_D": "0",
+          "RHU": "0"
+      }
+  ]
+}

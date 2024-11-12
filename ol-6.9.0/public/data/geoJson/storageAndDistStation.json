@@ -1,0 +1,92 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    104.13595,
+                    30.6452
+                ]
+            },
+            "properties": {
+                "lsh": 178,
+                "czbh": "2",
+                "mc": "第一储配站",
+                "dsbm": "510100",
+                "qhmc": "成华区",
+                "dz": "四川省成都市成华区建材路19号",
+                "czlx": "czlb002",
+                "ll": "",
+                "ljz": "",
+                "jhz": "",
+                "jd": 104.13595,
+                "wd": 30.6452,
+                "geom": "",
+                "yskzjbz": "",
+                "sjtbzt": "",
+                "tbsj": "2022-03-23T00:00:00.000Z",
+                "guid": "2"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    104.12991,
+                    30.64146
+                ]
+            },
+            "properties": {
+                "lsh": 179,
+                "czbh": "5",
+                "mc": "第二储配站",
+                "dsbm": "510100",
+                "qhmc": "成华区",
+                "dz": "成都市成华区东桂三号院旁边",
+                "czlx": "czlb002",
+                "ll": "",
+                "ljz": "",
+                "jhz": "",
+                "jd": 104.12991,
+                "wd": 30.64146,
+                "geom": "",
+                "yskzjbz": "",
+                "sjtbzt": "",
+                "tbsj": "2022-03-23T00:00:00.000Z",
+                "guid": "5"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    104.02313,
+                    30.69343
+                ]
+            },
+            "properties": {
+                "lsh": 213,
+                "czbh": "6",
+                "mc": "第三储配站",
+                "dsbm": "510100",
+                "qhmc": "金牛区",
+                "dz": "四川省成都市金牛区营康西路366号",
+                "czlx": "czlb002",
+                "ll": "",
+                "ljz": "",
+                "jhz": "",
+                "jd": 104.02313,
+                "wd": 30.69343,
+                "geom": "",
+                "yskzjbz": "",
+                "sjtbzt": "",
+                "tbsj": "2022-03-23T00:00:00.000Z",
+                "guid": "6"
+            }
+        }
+    ]
+}
