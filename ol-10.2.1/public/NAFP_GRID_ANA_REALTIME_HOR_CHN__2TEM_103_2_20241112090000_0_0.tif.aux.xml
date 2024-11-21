@@ -1,0 +1,25 @@
+<PAMDataset>
+  <Metadata>
+    <MDI key="level">2</MDI>
+    <MDI key="max">32.85680000000002</MDI>
+    <MDI key="mean">10.773368601825423</MDI>
+    <MDI key="median">16.781800000000032</MDI>
+    <MDI key="min">-39.96399999999997</MDI>
+    <MDI key="nodata">-9999</MDI>
+    <MDI key="offset">0.0</MDI>
+    <MDI key="scale">1.0</MDI>
+    <MDI key="std">16.862170293480393</MDI>
+    <MDI key="sum">18127280.78280006</MDI>
+    <MDI key="units">℃</MDI>
+    <MDI key="var">284.3327870063326</MDI>
+  </Metadata>
+  <PAMRasterBand band="1">
+    <Metadata>
+      <MDI key="STATISTICS_MAXIMUM">25.940099716187</MDI>
+      <MDI key="STATISTICS_MEAN">6.288168094699</MDI>
+      <MDI key="STATISTICS_MINIMUM">-16.268800735474</MDI>
+      <MDI key="STATISTICS_STDDEV">8.7238990939039</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">100</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>
