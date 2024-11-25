@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas 正方形</title>
+    <style></style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="800" height="800"></canvas>
+
+    <script>
+      // 获取 Canvas 元素
+      const canvas = document.getElementById('myCanvas');
+      const ctx = canvas.getContext('2d');
+
+      const centerX = 400;
+const centerY = 400;
+const radius = 100;
+
+// 1. 基础圆弧（90度）
+ctx.beginPath();
+ctx.arc(centerX, centerY, radius, 0, Math.PI / 2); // 从0到π/2（90度）
+ctx.strokeStyle = 'blue';
+ctx.lineWidth = 3;
+ctx.stroke();
+
+// 2. 填充圆弧（带直线连接圆心）
+ctx.beginPath();
+ctx.moveTo(centerX, centerY - 200); // 移动到圆心
+ctx.arc(centerX, centerY - 200, radius, 0, Math.PI * 1.5); // 270度
+ctx.closePath(); // 闭合路径（连接回圆心）
+ctx.fillStyle = 'red';
+ctx.fill();
+// 3. 带渐变的圆弧
+const gradient = ctx.createLinearGradient(
+    centerX - radius, centerY + 200,
+    centerX + radius, centerY + 200
+);
+gradient.addColorStop(0, 'purple');
+gradient.addColorStop(1, 'orange');
+
+ctx.beginPath();
+ctx.arc(centerX, centerY + 200, radius, Math.PI, Math.PI * 2); // 半圆
+ctx.strokeStyle = gradient;
+ctx.lineWidth = 15;
+ctx.stroke();
+
+// 4. 虚线圆弧
+ctx.beginPath();
+ctx.setLineDash([10, 5]); // 实线10像素，空白5像素
+ctx.arc(centerX + 200, centerY, radius, Math.PI * 0.5, Math.PI * 1.5); // 180度
+ctx.strokeStyle = 'green';
+ctx.lineWidth = 2;
+ctx.stroke();
+ctx.setLineDash([]); // 重置虚线设置
+    </script>
+  </body>
+</html>

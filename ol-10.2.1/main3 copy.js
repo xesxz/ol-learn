@@ -16,9 +16,8 @@ const map = new Map({
     })
   ],
   view: new View({
-    center: [104.06, 30.67],
-    zoom: 7,
-    projection: 'EPSG:4326'
+    center: [0, 0],
+    zoom: 2
   })
 });
 
@@ -57,31 +56,7 @@ const vectorSource = new VectorSource({
 // 创建矢量图层
 const vectorLayer = new VectorLayer({
   source: vectorSource,
-  style: createStyle,
-
-
-});
-
-// 将矢量图层添加到地图
-map.addLayer(vectorLayer);
-
-
-
-// 添加省界轮廓图层
-const provinceSource = new VectorSource({
-  url: 'https://geo.datav.aliyun.com/areas_v3/bound/510000.json', // 注意这里没有 _full
-  format: new GeoJSON()
-});
-
-const provinceStyle = new Style({
-  stroke: new Stroke({
-    color: '#000000',
-    width: 3
-  })
-});
-
-const provinceLayer = new VectorLayer({
-  source: provinceSource,
+  // style: createStyle,
   style: new Style({
     renderer(coordinate, state) {
       const ctx = state.context;
@@ -103,23 +78,22 @@ const provinceLayer = new VectorLayer({
       ctx.closePath();
 
       // 设置内阴影
-      ctx.shadowColor = 'rgba(0, 0, 0, 1)';
-      ctx.shadowBlur = 15;
-      ctx.shadowOffsetX = 15;
-      ctx.shadowOffsetY = 15;
+      ctx.shadowColor = 'rgba(0, 255, 0, 1)';
+      ctx.shadowBlur = 5;
+      ctx.shadowOffsetX = 5;
+      ctx.shadowOffsetY = 5;
 
       // 设置填充颜色
-      // ctx.fillStyle = 'rgba(0, 0, 255, 0.2)';
-      // ctx.fill();
+      ctx.fillStyle = 'rgba(0, 0, 255, 0.2)';
+      ctx.fill();
 
       // 设置边框
       ctx.strokeStyle = 'rgba(0, 0, 255, 1)';
       ctx.lineWidth = 2;
       ctx.stroke();
     },
-  }),
-  zIndex: 2  // 确保在最上层
+  })
 });
 
-// 将省界图层添加到地图
-map.addLayer(provinceLayer);
+// 将矢量图层添加到地图
+map.addLayer(vectorLayer);

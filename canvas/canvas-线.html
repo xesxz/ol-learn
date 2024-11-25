@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas 正方形</title>
+    <style></style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="800" height="800"></canvas>
+
+    <script>
+      // 获取 Canvas 元素
+      const canvas = document.getElementById('myCanvas');
+      const ctx = canvas.getContext('2d');
+
+ // 设置背景色
+ctx.fillStyle = 'white';
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+// 画脸（大圆）
+ctx.beginPath();
+ctx.arc(400, 400, 120, 0, Math.PI * 2);
+ctx.fillStyle = 'black';
+ctx.fill();
+
+// 画左耳朵（小圆）
+ctx.beginPath();
+ctx.arc(300, 280, 70, 0, Math.PI * 2);
+ctx.fillStyle = 'black';
+ctx.fill();
+
+// 画右耳朵（小圆）
+ctx.beginPath();
+ctx.arc(500, 280, 70, 0, Math.PI * 2);
+ctx.fillStyle = 'black';
+ctx.fill();
+
+
+ctx.beginPath();
+ctx.arc(400, 440, 80, 0, Math.PI);
+ctx.fillStyle = 'white';
+ctx.fill();
+
+// 画鼻子
+ctx.beginPath();
+ctx.arc(400, 400, 25, 0, Math.PI * 2);
+ctx.fillStyle = 'black';
+ctx.fill();
+
+// 画眼睛
+// 左眼
+ctx.beginPath();
+ctx.ellipse(350, 360, 25, 40, 0, 0, Math.PI * 2);
+ctx.fillStyle = 'white';
+ctx.fill();
+
+// 右眼
+ctx.beginPath();
+ctx.ellipse(450, 360, 25, 40, 0, 0, Math.PI * 2);
+ctx.fillStyle = 'white';
+ctx.fill();
+
+// 画眼球
+// 左眼球
+ctx.beginPath();
+ctx.arc(350, 380, 8, 0, Math.PI * 2);
+ctx.fillStyle = 'black';
+ctx.fill();
+
+// 右眼球
+ctx.beginPath();
+ctx.arc(450, 380, 8, 0, Math.PI * 2);
+ctx.fillStyle = 'black';
+ctx.fill();
+
+    </script>
+  </body>
+</html>

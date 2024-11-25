@@ -117,3 +117,8 @@ map.on('click',(moment) => {
   console.log(moment);
 
 })
+
+
+map.getAllLayers().forEach(layer => {
+  console.log(layer);
+})

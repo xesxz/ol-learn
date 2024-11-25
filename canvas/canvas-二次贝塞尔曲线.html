@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas 正方形</title>
+    <style></style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="800" height="800"></canvas>
+
+    <script>
+      // 获取 Canvas 元素
+      const canvas = document.getElementById('myCanvas');
+      const ctx = canvas.getContext('2d');
+// 1. 基础二次贝塞尔曲线
+ctx.beginPath();
+ctx.moveTo(100, 400);  // 起点
+ctx.quadraticCurveTo(
+    300, 200,          // 控制点
+    500, 400           // 终点
+);
+ctx.strokeStyle = 'blue';
+ctx.lineWidth = 3;
+ctx.stroke();
+
+// 2. 填充的二次贝塞尔曲线
+ctx.beginPath();
+ctx.moveTo(100, 200);
+ctx.quadraticCurveTo(
+    300, 50,
+    500, 200
+);
+ctx.lineTo(500, 250);  // 添加直线
+ctx.quadraticCurveTo(  // 返回的曲线
+    300, 100,
+    100, 250
+);
+ctx.closePath();
+ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+ctx.fill();
+
+
+
+drawQuadraticWithControl(
+    100, 600,  // 起点
+    300, 450,  // 控制点
+    500, 600   // 终点
+);
+
+
+// 3. 带控制点显示的二次贝塞尔曲线
+function drawQuadraticWithControl(startX, startY, cpX, cpY, endX, endY) {
+    // 绘制曲线
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+    ctx.quadraticCurveTo(cpX, cpY, endX, endY);
+    ctx.strokeStyle = 'purple';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // 绘制控制点和连线
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(cpX, cpY);
+    ctx.lineTo(endX, endY);
+    ctx.setLineDash([5, 5]);
+    ctx.strokeStyle = 'green';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // 绘制点
+    function drawPoint(x, y, color) {
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+    }
+
+    drawPoint(startX, startY, 'blue');    // 起点
+    drawPoint(cpX, cpY, 'red');           // 控制点
+    drawPoint(endX, endY, 'blue');        // 终点
+}
+
+    </script>
+  </body>
+</html>

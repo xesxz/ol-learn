@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas 正方形</title>
+    <style></style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="800" height="800"></canvas>
+
+    <script>
+      // 获取 Canvas 元素
+      const canvas = document.getElementById('myCanvas');
+      const ctx = canvas.getContext('2d');
+      const centerX = 400; // 圆心 x 坐标
+      const centerY = 400; // 圆心 y 坐标
+      const radius = 50; // 半径
+
+      // 方式1：填充圆
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2); // 从0到2π画完整圆
+      ctx.fillStyle = 'blue';
+      ctx.fill();
+      // 方式2：描边圆（只有轮廓）
+      ctx.beginPath();
+      ctx.arc(centerX, centerY + 150, radius, 0, Math.PI * 2);
+      ctx.strokeStyle = 'red';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // 方式3：渐变圆
+      const gradient = ctx.createRadialGradient(
+        centerX,
+        centerY - 150, // 内圆圆心和起始点
+        0, // 内圆半径
+        centerX,
+        centerY - 150, // 外圆圆心和结束点
+        radius, // 外圆半径
+      );
+      gradient.addColorStop(0, 'white');
+      gradient.addColorStop(1, 'purple');
+
+      ctx.beginPath();
+      ctx.arc(centerX, centerY - 150, radius, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+
+
+
+    </script>
+  </body>
+</html>
