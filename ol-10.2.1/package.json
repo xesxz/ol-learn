@@ -10,6 +10,9 @@
     "vite": "^5.4.10"
   },
   "dependencies": {
-    "ol": "latest"
+    "ol": "latest",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.0.2"
   }
 }

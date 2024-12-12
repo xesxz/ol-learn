@@ -1,53 +1,23 @@
-import './style.css';
-import {Map, View} from 'ol';
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
-import Point from 'ol/geom/Point';
-import Feature from 'ol/Feature';
-import {fromLonLat} from 'ol/proj';
-import VectorSource from 'ol/source/Vector'
-import VectorLayer from 'ol/layer/Vector'
-import {Circle, Fill, Stroke, Style, Icon} from 'ol/style';
-import GeoJSON from 'ol/format/GeoJSON'
-import LineString from 'ol/geom/LineString';
-import MultiLineString from 'ol/geom/MultiLineString';
-import rbush from 'rbush';
-import { getVectorContext, toContext } from "ol/render.js";
-import Draw from 'ol/interaction/Draw';
-import {getLength} from 'ol/sphere';
-import Overlay from 'ol/Overlay';
-import {Observable} from 'ol';
-import GeoTIFF from 'ol/source/GeoTIFF';
+import useMap from '../hooks/map';
+import { GeoTIFF } from 'ol/source';
+import { useEffect } from 'react';
 import WebGLTileLayer from 'ol/layer/WebGLTile';
-import {
-  XYZ,
-} from "ol/source";
-import {
-  Tile
-} from "ol/layer";
-// ... existing imports ...
-import {Text} from 'ol/style';
+export default function CogRender() {
+ const map = useMap();
+ function getColor(config) {
+  const interpolateArray = ['interpolate', ['linear'], ['band', 1]];
 
+  config.forEach(([value, color]) => {
+    interpolateArray.push(value);
+    interpolateArray.push(color);
+  });
+  return interpolateArray;
+}
 
-const map = new Map({
-    target: 'map',
-    layers: [
+ useEffect(() => {
+  if(map){
 
-      new Tile({
-        source: new OSM()
-
-      })
-    ],
-    view: new View({
-        projection: 'EPSG:4326',
-        center: [104.065, 30.697],
-        zoom: 3
-    })
-});
-
-
-
-const tmpLegend = [
+ const tmpLegend = [
   [-36, [128, 0, 124]],
   [-32, [0, 47, 134]],
   [-28, [26, 92, 166]],
@@ -115,6 +85,8 @@ const PRE  = [
 
 
 
+
+
 const tiffSource = new GeoTIFF({
   normalize: false,
   sources: [{
@@ -126,18 +98,6 @@ const tiffSource = new GeoTIFF({
 
 });
 
-
-function getColor(config) {
-  const interpolateArray = ['interpolate', ['linear'], ['band', 1]];
-
-  config.forEach(([value, color]) => {
-    interpolateArray.push(value);
-    interpolateArray.push(color);
-  });
-  return interpolateArray;
-}
-
-
 const tiffLayer = new WebGLTileLayer({
   source: tiffSource,
   style:{
@@ -147,7 +107,10 @@ const tiffLayer = new WebGLTileLayer({
 
 });
 
-map.addLayer(tiffLayer)
+ map.current.addLayer(tiffLayer)
+
+  }
+ }, [map]);
 
 
 
@@ -156,3 +119,10 @@ map.addLayer(tiffLayer)
 
 
 
+
+
+  return <div id="map">
+
+
+  </div>;
+}
