@@ -4,6 +4,8 @@ import Home from './page/home';
 import CogRender from './page/cogRender';
 import WebGLPoints from './page/WebGLPoints';
 import Idw2Contour from './page/Idw2Contour';
+import GridPoint from './page/gridPoint';
+import Wms from './page/wms';
 function App() {
 
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/cogRender" element={<CogRender />} />
           <Route path="/WebGLPoints" element={<WebGLPoints />} />
           <Route path="/Idw2Contour" element={<Idw2Contour />} />
+          <Route path="/gridPoint" element={<GridPoint />} />
+          <Route path="/wms" element={<Wms />} />
         </Routes>
       </div>
     </Router>

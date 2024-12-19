@@ -10,11 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "geotiff": "^2.1.3",
+    "ol": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^7.0.2",
-    "react-router-dom": "^7.0.2",
-    "ol": "latest"
+    "react-router-dom": "^7.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

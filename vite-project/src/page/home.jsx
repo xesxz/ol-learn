@@ -13,6 +13,12 @@ export default function Home() {
   }, {
     name: 'Idw2Contour',
     path: '/Idw2Contour'
+  }, {
+    name: 'GridPoint',
+    path: '/GridPoint'
+  }, {
+    name: 'Wms',
+    path: '/Wms'
   }]
   return <ul>
     {
