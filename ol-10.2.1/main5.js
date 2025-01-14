@@ -90,6 +90,7 @@ const addRegion3DLayer = (geojsonData) => {
   });
 
   map.addLayer(canvasLayer);
+  map.getView().fit(features[0].getGeometry().getExtent(), {});
 };
 
 
