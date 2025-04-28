@@ -78,9 +78,9 @@ function registerEvent(){
       scale: 0.5,
     }),
     stroke: new Stroke({
-      color:"cyan", 
-      width:1 
-    }) 
+      color:"cyan",
+      width:1
+    })
 
   })
 
@@ -144,4 +144,86 @@ function getStyle(feature, resolution) {
     }
   }
   return style
+}
+
+
+
+
+
+// 原生聚合图层
+
+async function addPoint(info) {
+  const name = info.value;
+  const geojson = await getGeojson(name);
+  const map = getMap();
+
+  const rawSource = new VectorSource({
+    features: new GeoJSON().readFeatures(geojson.data, {
+      dataProjection: 'EPSG:4326',
+      featureProjection: 'EPSG:3857',
+    }),
+  });
+
+  // 聚合源
+  const clusterSource = new ClusterSource({
+    distance: 40, // 聚合半径（像素）
+    source: rawSource,
+  });
+  const innerCircleFill = new Fill({
+    color: 'rgba(255, 165, 0, 0.7)',
+  });
+  const outerCircleFill = new Fill({
+    color: 'rgba(255, 153, 102, 0.3)',
+  });
+  const innerCircle = new CircleStyle({
+    radius: 14,
+    fill: innerCircleFill,
+  });
+  const outerCircle = new CircleStyle({
+    radius: 20,
+    fill: outerCircleFill,
+  });
+  const textFill = new Fill({
+    color: '#fff',
+  });
+  const textStroke = new Stroke({
+    color: 'rgba(0, 0, 0, 0.6)',
+    width: 3,
+  });
+
+  // 聚合样式
+  const style = function (feature) {
+    const size = feature.get('features').length;
+    if (size === 1) {
+      return new Style({
+        image: new Icon({
+          src: imgs1[info.png],
+          scale: 0.5,
+        }),
+      });
+    } else {
+      return [
+        new Style({
+          image: outerCircle,
+        }),
+        new Style({
+          image: innerCircle,
+          text: new Text({
+            text: size.toString(),
+            fill: textFill,
+            stroke: textStroke,
+          }),
+        }),
+      ];
+    }
+  };
+
+  const clusterLayer = new VectorLayer({
+    source: clusterSource,
+    style: style,
+    zIndex: 2,
+  });
+
+  clusterLayer.set('name', name);
+  map.addLayer(clusterLayer);
 }

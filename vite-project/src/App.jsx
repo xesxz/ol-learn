@@ -6,6 +6,8 @@ import WebGLPoints from './page/WebGLPoints';
 import Idw2Contour from './page/Idw2Contour';
 import GridPoint from './page/gridPoint';
 import Wms from './page/wms';
+import GridValueLayer from './page/gridValueLayer'
+import Olms from './page/olms'
 function App() {
 
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/Idw2Contour" element={<Idw2Contour />} />
           <Route path="/gridPoint" element={<GridPoint />} />
           <Route path="/wms" element={<Wms />} />
+          <Route path="/gridValueLayer" element={<GridValueLayer />} />
+          <Route path="/olms" element={<Olms />} />
         </Routes>
       </div>
     </Router>

@@ -19,7 +19,14 @@ export default function Home() {
   }, {
     name: 'Wms',
     path: '/Wms'
-  }]
+  },
+  {
+    name: 'Olms',
+    path: '/olms'
+  }
+
+
+]
   return <ul>
     {
       navigate.map((item) => (

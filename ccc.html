@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.4/pako.min.js"></script>
+
+
+
+
+<script>
+
+
+
+function displayGeoJson(base64Data) {
+  try {
+      // Step 1: Base64 解码
+      const binaryData = atob(base64Data);
+
+      // Step 2: 转换为 Uint8Array（用于 pako 解压）
+      const charArray = new Uint8Array(binaryData.length);
+      for (let i = 0; i < binaryData.length; i++) {
+          charArray[i] = binaryData.charCodeAt(i);
+      }
+
+      // Step 3: 使用 pako 解压
+      const decompressedData = pako.ungzip(charArray, { to: 'string' });
+
+      // Step 4: 解析 JSON 字符串
+      const geoJsonObject = JSON.parse(decompressedData);
+
+      // Step 5: 显示结果
+      console.log(geoJsonObject);
+  } catch (error) {
+      console.error("解码或解压失败:", error);
+  }
+}
+
+// 示例调用
+const base64Data = "H4sIAAAAAAAAADXLQQrCMBAF0Lv0AJlJbJF0F9OZuKhpSESRIrMT3bnI/bFGnMUf+Py3ds9a3yOARqVtr+z2BhwtooZAi8zuRhmi4wTxyhOE7BKVwAUiHQkO3k9g0AwtcId7mBOZvgnhJQufT/JD4rlcjHydSFuJFpQ/xHaytajq69HdP7Lcfp2bAAAA";
+displayGeoJson(base64Data);
+</script>
+
+
+
+</body>
+</html>

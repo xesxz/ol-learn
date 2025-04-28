@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>熊谷市温度マップ</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        body { padding: 0; margin: 0; }
+        #map { height: 100vh; width: 100%; }
+        #info { position: absolute; top: 10px; left: 10px; z-index: 1000; background: white; padding: 5px; border-radius: 5px; }
+        .legend { padding: 6px 8px; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; }
+        #getLocationBtn, #cancelLocationBtn {
+            position: absolute;
+            left: 10px;
+            z-index: 1000;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        #getLocationBtn { top: 50px; }
+        #cancelLocationBtn { top: 90px; display: none; }
+        #loading {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        @media (max-width: 600px) {
+            #map { height: 80vh; }
+            #info, #getLocationBtn, #cancelLocationBtn {
+                font-size: 14px;
+                padding: 3px;
+            }
+            .legend { font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div id="info">位置情報: 未取得</div>
+    <div id="loading">Loading...</div>
+    <button id="getLocationBtn">現在地を取得</button>
+    <button id="cancelLocationBtn">位置情報の取得をキャンセル</button>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/geotiff"></script>
+    <script>
+        const KUMAGAYA_STATION = [36.1406, 139.3881];
+        const map = L.map('map', {
+            tap: true,
+            tapTolerance: 15
+        }).setView(KUMAGAYA_STATION, 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        const geoTiffUrl = 'https://raw.githubusercontent.com/masimama/kumagaya_temp/main/202407102100_temp.tif';
+        let temperatureData;
+        let watchId = null;
+
+        function debugLog(message, isError = false) {
+            console.log(message);
+            if (isError) {
+                alert(`エラー: ${message}`);
+            }
+        }
+
+        async function loadGeoTIFF() {
+            document.getElementById('loading').style.display = 'block';
+            try {
+                const response = await fetch(geoTiffUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const arrayBuffer = await response.arrayBuffer();
+                const tiff = await GeoTIFF.fromArrayBuffer(arrayBuffer);
+                const image = await tiff.getImage();
+                const bbox = image.getBoundingBox();
+                const rasters = await image.readRasters();
+                const temperatures = rasters[0];
+
+                temperatureData = {
+                    bbox,
+                    temperatures,
+                    width: image.getWidth(),
+                    height: image.getHeight()
+                };
+
+                displayTemperatureMap();
+            } catch (error) {
+                console.error('Error loading GeoTIFF:', error);
+                debugLog(`温度データの読み込みに失敗しました: ${error.message}`, true);
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        function displayTemperatureMap() {
+            const {bbox, temperatures, width, height} = temperatureData;
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            const imageData = ctx.createImageData(width, height);
+            const rgba = imageData.data;
+
+            const minTemp = Math.min(...temperatures);
+            const maxTemp = Math.max(...temperatures);
+
+            for (let i = 0; i < temperatures.length; i++) {
+                const [r, g, b] = tempToColor(temperatures[i], minTemp, maxTemp);
+                rgba[i * 4] = r;
+                rgba[i * 4 + 1] = g;
+                rgba[i * 4 + 2] = b;
+                rgba[i * 4 + 3] = 255;
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+            L.imageOverlay(canvas.toDataURL(), [[bbox[1], bbox[0]], [bbox[3], bbox[2]]], {opacity: 0.7}).addTo(map);
+            map.fitBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]]);
+            addLegend(minTemp, maxTemp);
+        }
+
+        function tempToColor(temp, min, max) {
+            const ratio = (temp - min) / (max - min);
+            return [Math.round(ratio * 255), 0, Math.round((1 - ratio) * 255)];
+        }
+
+        function addLegend(min, max) {
+            const legend = L.control({position: 'bottomleft'});
+            legend.onAdd = () => {
+                const div = L.DomUtil.create('div', 'legend');
+                div.innerHTML = `<h4>温度 (°C)</h4><div style="background: linear-gradient(to right, blue, red); height: 20px;"></div><div>${min.toFixed(1)}°C ${max.toFixed(1)}°C</div>`;
+                return div;
+            };
+            legend.addTo(map);
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                document.getElementById('getLocationBtn').style.display = 'none';
+                document.getElementById('cancelLocationBtn').style.display = 'block';
+                document.getElementById("info").innerHTML = "位置情報: 取得中...";
+                watchId = navigator.geolocation.watchPosition(showPosition, showError);
+            } else {
+                document.getElementById("info").innerHTML = "Geolocationはサポートされていません";
+                debugLog("Geolocationはサポートされていません", true);
+            }
+        }
+
+        function showPosition(position) {
+            const {latitude: lat, longitude: lon} = position.coords;
+            const temp = getTemperatureAtLocation(lat, lon);
+            document.getElementById("info").innerHTML = `緯度: ${lat.toFixed(4)}<br>経度: ${lon.toFixed(4)}<br>気温: ${temp ? temp.toFixed(1) + '°C' : '取得中...'}`;
+
+            if (window.currentPositionMarker) {
+                map.removeLayer(window.currentPositionMarker);
+            }
+            window.currentPositionMarker = L.marker([lat, lon]).addTo(map)
+                .bindPopup(`現在地<br>気温: ${temp ? temp.toFixed(1) + '°C' : '取得中...'}`).openPopup();
+
+            map.setView([lat, lon], 15);
+        }
+
+        function showError(error) {
+            const messages = {
+                1: "ユーザーが位置情報の使用を拒否しました",
+                2: "位置情報が利用できません",
+                3: "位置情報の取得がタイムアウトしました",
+                0: "不明なエラーが発生しました"
+            };
+            document.getElementById("info").innerHTML = messages[error.code] || messages[0];
+            debugLog(`位置情報エラー: ${messages[error.code] || messages[0]}`, true);
+            cancelLocationTracking();
+        }
+
+        function getTemperatureAtLocation(lat, lon) {
+            if (!temperatureData) return null;
+            const {bbox, temperatures, width, height} = temperatureData;
+            const x = Math.floor((lon - bbox[0]) / (bbox[2] - bbox[0]) * width);
+            const y = Math.floor((bbox[3] - lat) / (bbox[3] - bbox[1]) * height);
+            return temperatures[y * width + x];
+        }
+
+        function cancelLocationTracking() {
+            if (watchId !== null) {
+                navigator.geolocation.clearWatch(watchId);
+                watchId = null;
+                document.getElementById("info").innerHTML = "位置情報の取得をキャンセルしました";
+                document.getElementById('getLocationBtn').style.display = 'block';
+                document.getElementById('cancelLocationBtn').style.display = 'none';
+            }
+        }
+
+        document.getElementById('getLocationBtn').addEventListener('click', getLocation);
+        document.getElementById('cancelLocationBtn').addEventListener('click', cancelLocationTracking);
+
+        loadGeoTIFF();
+    </script>
+</body>
+</html>

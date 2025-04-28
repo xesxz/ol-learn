@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<script>
+async function start(){
+  const data = await axios.get('http://10.194.90.150:9001/GEO_LAYER/NAFP/NWFD/SPCC/BCCD/2025/20250409/TEM/NAFP_NWFP_SPCC__TEM_103_2_20250409080000_42_0.tif',
+
+
+{
+  responseType: 'arraybuffer',
+  headers: {
+    'Content-Type': 'application/octet-stream',
+    'Accept': 'application/octet-stream'
+  }
+}
+);
+// let reader = new BufferReader(data.data);
+
+
+// let left = reader.ReadDouble();
+//       let top = reader.ReadDouble();
+//       let xCellSize = reader.ReadDouble();
+//       let yCellSize = reader.ReadDouble();
+//       let cols = reader.ReadInt();
+//       let rows = reader.ReadInt();
+
+//       console.log(left, top, xCellSize, yCellSize, cols, rows);
+
+
+      var decoder = new BufferDecoder(data.data);
+       const    buffer = decoder.Decode();
+       console.log(buffer);
+
+
+
+
+}
+
+
+start()
+
+
+
+
+
+
+function BufferDecoder(buffer){
+    this._buffer=buffer;
+}
+
+BufferDecoder.prototype.Decode=function(){
+    if(this._buffer.byteLength==0) return null;
+    let br=new BufferReader(this._buffer);
+    let bufferSize=br.ReadInt();
+    if(bufferSize>this._buffer.byteLength*1024) return null;
+    let newBuffer;
+    if(bufferSize===0){
+        bufferSize=br.TotalBytes-4;
+        newBuffer=new ArrayBuffer(bufferSize);
+        let byteOld=new Uint8Array(this._buffer,4,bufferSize);
+        let byteNew=new Uint8Array(newBuffer,0,bufferSize);
+        for(let k=0;k<bufferSize;k++){
+            byteNew[k]=byteOld[k];
+        }
+    }
+    else {
+        let curDif=br.ReadByte();
+        let k=5;
+        let CurrentNum;
+        newBuffer=new ArrayBuffer(bufferSize);
+        let byteOld=new Uint8Array(this._buffer,0,br.TotalBytes);
+        let byteNew=new Uint8Array(newBuffer,0,bufferSize);
+        //unsigned char*bits=pNewData;
+        for(let p=0;p<curDif;p++) {
+            CurrentNum=0;
+            let num=parseInt((bufferSize-p)/curDif);
+            if(curDif*num<bufferSize-p) num++;
+            while(CurrentNum<num)
+            {
+                let bV=byteOld[k++];
+                if(bV>=130) {
+                    let num2=bV-127;
+                    for(let j=0;j<num2;j++) byteNew[curDif*(CurrentNum++)+p]=byteOld[k];
+                    k++;
+                }
+                else {
+                    let num2=bV;
+                    for(let j=0;j<num2;j++) byteNew[curDif*(CurrentNum++)+p]=byteOld[k++];
+                }
+            }
+        }
+    }
+    return newBuffer;
+}
+
+
+function BufferReader(buffer){
+    this._buffer=buffer;
+    this._currenPin=0;
+    this._byteByffer=new Uint8Array(this._buffer,0,this._buffer.byteLength);
+    this._vbuffer=new ArrayBuffer(8);
+    this._vbbuffer=new Uint8Array(this._vbuffer,0,8);
+    this._ushortTypeBuffer=new Uint16Array(this._vbuffer,0,1);
+    this._shortTypeBuffer=new Int16Array(this._vbuffer,0,1);
+    this._uintTypeBuffer=new Int32Array(this._vbuffer,0,1);
+    this._intTypeBuffer=new Int32Array(this._vbuffer,0,1);
+    this._fltTypeBuffer=new Float32Array(this._vbuffer,0,1);
+    this._dbTypeBuffer=new Float64Array(this._vbuffer,0,1);
+}
+
+Object.defineProperties(BufferReader.prototype,{
+    TotalBytes:{
+        get:function(){return this._buffer.byteLength;}
+    },
+    CurrentPin:{
+        get:function(){return this._currenPin;}
+    }
+});
+
+BufferReader.prototype.Move=function(differBytes){
+    this._currenPin+=differBytes;
+}
+
+BufferReader.prototype.ReadByte=function(){
+    let b=this._byteByffer[this._currenPin++];
+    return b;
+}
+
+BufferReader.prototype.ReadUShort=function(){
+    for(let k=0;k<2;k++){
+        this._vbbuffer[k]=this._byteByffer[this._currenPin++];
+    }
+    return this._ushortTypeBuffer[0];
+}
+BufferReader.prototype.ReadShort=function(){
+    for(let k=0;k<2;k++){
+        this._vbbuffer[k]=this._byteByffer[this._currenPin++];
+    }
+    return this._shortTypeBuffer[0];
+}
+
+BufferReader.prototype.ReadUInt=function(){
+    for(let k=0;k<4;k++){
+        this._vbbuffer[k]=this._byteByffer[this._currenPin++];
+    }
+    return this._uintTypeBuffer[0];
+}
+
+BufferReader.prototype.ReadInt=function(){
+    for(let k=0;k<4;k++){
+        this._vbbuffer[k]=this._byteByffer[this._currenPin++];
+    }
+    return this._intTypeBuffer[0];
+}
+BufferReader.prototype.ReadFloat=function(){
+    for(let k=0;k<4;k++){
+        this._vbbuffer[k]=this._byteByffer[this._currenPin++];
+    }
+    return this._fltTypeBuffer[0];
+}
+BufferReader.prototype.ReadDouble=function(){
+    for(let k=0;k<8;k++){
+        this._vbbuffer[k]=this._byteByffer[this._currenPin++];
+    }
+    return this._dbTypeBuffer[0];
+}
+function binaryUtf8ToString(buf, begin,length){
+    let i = 0;
+    let pos = 0;
+    let str ="";
+    let unicode = 0 ;
+    let flag = 0;
+    for (pos = begin; pos < begin+length;){
+        flag= buf[pos];
+        if ((flag >>>7) === 0 ) {
+            str+= String.fromCharCode(buf[pos]);
+            pos += 1;
+        }
+        else if ((flag &0xFC) === 0xFC ){
+            unicode = (buf[pos] & 0x3) << 30;
+            unicode |= (buf[pos+1] & 0x3F) << 24;
+            unicode |= (buf[pos+2] & 0x3F) << 18;
+            unicode |= (buf[pos+3] & 0x3F) << 12;
+            unicode |= (buf[pos+4] & 0x3F) << 6;
+            unicode |= (buf[pos+5] & 0x3F);
+            str+= String.fromCharCode(unicode) ;
+            pos += 6;
+
+        }else if ((flag &0xF8) === 0xF8 ){
+            unicode = (buf[pos] & 0x7) << 24;
+            unicode |= (buf[pos+1] & 0x3F) << 18;
+            unicode |= (buf[pos+2] & 0x3F) << 12;
+            unicode |= (buf[pos+3] & 0x3F) << 6;
+            unicode |= (buf[pos+4] & 0x3F);
+            str+= String.fromCharCode(unicode) ;
+            pos += 5;
+
+        }
+        else if ((flag &0xF0) === 0xF0 ){
+            unicode = (buf[pos] & 0xF) << 18;
+            unicode |= (buf[pos+1] & 0x3F) << 12;
+            unicode |= (buf[pos+2] & 0x3F) << 6;
+            unicode |= (buf[pos+3] & 0x3F);
+            str+= String.fromCharCode(unicode) ;
+            pos += 4;
+        }
+
+        else if ((flag &0xE0) === 0xE0 ){
+            unicode = (buf[pos] & 0x1F) << 12;;
+            unicode |= (buf[pos+1] & 0x3F) << 6;
+            unicode |= (buf[pos+2] & 0x3F);
+            str+= String.fromCharCode(unicode) ;
+            pos += 3;
+
+        }
+        else if ((flag &0xC0) === 0xC0 ){ //110
+            unicode = (buf[pos] & 0x3F) << 6;
+            unicode |= (buf[pos+1] & 0x3F);
+            str+= String.fromCharCode(unicode) ;
+            pos += 2;
+
+        }
+        else{
+            str+= String.fromCharCode(buf[pos]);
+            pos += 1;
+        }
+    }
+    return str;
+}
+
+BufferReader.prototype.ReadString=function(){
+    let strLen=this.ReadInt();
+    if(strLen===0) return "";
+    let str=binaryUtf8ToString(this._byteByffer,this._currenPin,strLen);
+    this._currenPin+=strLen;
+    return str;
+}
+
+BufferReader.prototype.ReadBytes=function(){
+    let count=this.ReadInt();
+    let values=[];
+    values.length=count;
+    for(let k=0;k<count;k++){
+        values[k]=this._byteByffer[this._currenPin++];
+    }
+    return values;
+}
+
+BufferReader.prototype.ReadUShorts=function(){
+    let count=this.ReadInt();
+    let values=[];
+    values.length=count;
+    for(let k=0;k<count;k++){
+        values[k]=this.ReadUShort();
+    }
+    return values;
+}
+
+BufferReader.prototype.ReadShorts=function(){
+    let count=this.ReadInt();
+    let values=[];
+    values.length=count;
+    for(let k=0;k<count;k++){
+        values[k]=this.ReadShort();
+    }
+    return values;
+}
+
+BufferReader.prototype.ReadUInts=function(){
+    let count=this.ReadInt();
+    let values=[];
+    values.length=count;
+    for(let k=0;k<count;k++){
+        values[k]=this.ReadUInt();
+    }
+    return values;
+}
+
+BufferReader.prototype.ReadInts=function(){
+    let count=this.ReadInt();
+    let values=[];
+    values.length=count;
+    for(let k=0;k<count;k++){
+        values[k]=this.ReadInt();
+    }
+    return values;
+}
+
+BufferReader.prototype.ReadFloats=function(){
+    let count=this.ReadInt();
+    let values=[];
+    values.length=count;
+    for(let k=0;k<count;k++){
+        values[k]=this.ReadFloat();
+    }
+    return values;
+}
+
+BufferReader.prototype.ReadDoubles=function(){
+    let count=this.ReadInt();
+    let values=[];
+    values.length=count;
+    for(let k=0;k<count;k++){
+        values[k]=this.ReadDouble();
+    }
+    return values;
+}
+
+
+
+
+
+</script>
+</body>
+</html>

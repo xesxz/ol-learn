@@ -190,11 +190,6 @@ let vectorLayer = null;
     );
     const image = await tiff.getImage();
     const data = await image.readRasters();
-    console.log(image, 'data');
-    console.log(data, 'data');
-    console.log(image.getGDALMetadata()      , 'data');
-
-
 
     const width = image.getWidth();
     const height = image.getHeight();
@@ -220,8 +215,6 @@ let vectorLayer = null;
         map.current.getView().getZoom(),
       ),
     });
-
-
 
     vectorLayer = new VectorLayer({
       name:'点',
@@ -252,57 +245,6 @@ let vectorLayer = null;
 
   test();
 
-
-  const stations = [{"id":6,"province":"四川省","city":"达州市","stationName":"达川","stationIdC":"57328","lon":107.5067,"lat":31.2075,"alti":344.9},{"id":18,"province":"四川省","city":"遂宁市","stationName":"遂宁","stationIdC":"57405","lon":105.5622,"lat":30.5069,"alti":354.9},{"id":19,"province":"四川省","city":"凉山州","stationName":"西昌","stationIdC":"56571","lon":102.2678,"lat":27.9036,"alti":1590.9},{"id":32,"province":"四川省","city":"广元市","stationName":"广元","stationIdC":"57206","lon":105.8997,"lat":32.4244,"alti":545.4},{"id":38,"province":"四川省","city":"眉山市","stationName":"眉山","stationIdC":"56391","lon":103.8758,"lat":30.0581,"alti":484},{"id":41,"province":"四川省","city":"自贡市","stationName":"自贡","stationIdC":"56396","lon":104.7658,"lat":29.3575,"alti":353.4},{"id":54,"province":"四川省","city":"阿坝州","stationName":"马尔康","stationIdC":"56172","lon":102.2286,"lat":31.8989,"alti":2686.8},{"id":61,"province":"四川省","city":"攀枝花","stationName":"攀枝花","stationIdC":"56666","lon":101.7211,"lat":26.5761,"alti":1190.1},{"id":69,"province":"四川省","city":"广安市","stationName":"广安","stationIdC":"57415","lon":106.6403,"lat":30.5219,"alti":372.3},{"id":77,"province":"四川省","city":"资阳市","stationName":"资阳","stationIdC":"56298","lon":104.6581,"lat":30.0683,"alti":414.2},{"id":78,"province":"四川省","city":"甘孜藏族自治州","stationName":"康定","stationIdC":"56374","lon":101.9606,"lat":30.055,"alti":2606.3},{"id":84,"province":"四川省","city":"乐山市","stationName":"乐山","stationIdC":"56386","lon":103.7553,"lat":29.5647,"alti":424.2},{"id":90,"province":"四川省","city":"南充市","stationName":"高坪","stationIdC":"57411","lon":106.1319,"lat":30.7456,"alti":347},{"id":105,"province":"四川省","city":"德阳市","stationName":"德阳","stationIdC":"56198","lon":104.4983,"lat":31.3181,"alti":525.7},{"id":115,"province":"四川省","city":"雅安市","stationName":"雅安","stationIdC":"56287","lon":102.9994,"lat":29.9831,"alti":627.6},{"id":126,"province":"四川省","city":"泸州市","stationName":"纳溪","stationIdC":"57604","lon":105.3928,"lat":28.7875,"alti":368.6},{"id":142,"province":"四川省","city":"巴中市","stationName":"巴中","stationIdC":"57313","lon":106.785,"lat":31.8872,"alti":556.7},{"id":148,"province":"四川省","city":"绵阳市","stationName":"绵阳","stationIdC":"56196","lon":104.7264,"lat":31.4403,"alti":521.1},{"id":154,"province":"四川省","city":"内江市","stationName":"东兴区","stationIdC":"57503","lon":105.1186,"lat":29.6197,"alti":349.9},{"id":271,"province":"四川","city":"成都市","stationName":"锦江三圣乡","stationIdC":"S1003","lon":104.1578,"lat":30.5894,"alti":507},{"id":2091,"province":"四川省","city":"宜宾市","stationName":"安阜古塔路","stationIdC":"S5702","lon":104.5967,"lat":28.7983,"alti":340.8}]
-
-
-  let url =       'http://10.194.90.150:9001/GEO_LAYER/NAFP/NWFD/SPCC/BCCD/2025/20250410/TEM/NAFP_NWFP_SPCC__TEM_103_2_20250410080000_33_0.tif'
-
-
-async function getData(){
-  let  r  = await  assignTiffValuesToStations(url, stations)
-
-  console.log(r, 'r');
-}
-
-
-getData()
-
-
-
-  async function assignTiffValuesToStations(tiffUrl, stations) {
-    const tiff = await tiffFromUrl(
-      tiffUrl,
-
-    );
-    const image = await tiff.getImage();
-    const rasters = await image.readRasters(); // 默认读取所有波段
-    const tiepoint = image.getTiePoints()[0];
-    const pixelScale = image.getFileDirectory().ModelPixelScale;
-
-    const [originX, originY] = [tiepoint.x, tiepoint.y];
-    const [resX, resY] = pixelScale;
-    const width = image.getWidth();
-    const height = image.getHeight();
-
-    for (const station of stations) {
-      const lon = station.lon;
-      const lat = station.lat;
-
-      const col = Math.floor((lon - originX) / resX);
-      const row = Math.floor((originY - lat) / resY);
-
-      if (col < 0 || row < 0 || col >= width || row >= height) {
-        station.tiffValue = null; // 超出边界
-      } else {
-        const index = row * width + col;
-        station.tiffValue = rasters[0][index]; // 假设单波段
-      }
-    }
-
-    return stations;
-  }
-
   function createFeaturesFromRaster(
     rasters,
     width,
@@ -319,10 +261,7 @@ getData()
     // 2. 基础步长与zoom成反比
     // 3. 限制最小和最大步长
     const baseStep = Math.max(1, Math.min(10, Math.round(10 / Math.log(zoom + 1))));
-    const step = Math.max(2, Math.min(baseStep, Math.floor(width / 10)));
-
-
-    console.log(baseStep,12312);
+    const step = Math.max(2, Math.min(baseStep, Math.floor(width / 20)));
 
     // 可选：添加一个密度控制因子，可以调整这个值来改变整体密度
     const densityFactor = 5.5;
@@ -343,7 +282,6 @@ getData()
           geometry: new Point([px, py]),
           value: value,
         });
-
 
         features.push(feature);
       }

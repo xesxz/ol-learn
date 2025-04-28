@@ -22,11 +22,11 @@ function initMap(){
   });
   map = new Map({
     target: 'map',
-    layers: [],
+    layers: [vecLayer],
     view: new View({ center: [104, 31], zoom: 6, projection: 'EPSG:4326' }),
   });
-  addWmsLayer();
-  // addImageLayer();
+  // addWmsLayer();
+  addImageLayer();
 
 
 
@@ -36,13 +36,12 @@ function initMap(){
 
 function addWmsLayer(){
   const source = new TileWMS({
-    url: 'http://172.24.2.59:8188/geoserver/GisServer/wms',
+    url: 'http://10.194.90.150:28032/geoserver/area/wms',
     params: {
       SERVICE:'WMS',
       REQUEST:'GetMap',
       VERSION:'1.1.1',
-      // LAYERS:'gz_510000_polygon',
-      LAYERS:'baseMapLayer2_dark',
+      LAYERS:'area:basin',
       STYLES:'',
       FORMAT:'image/png',
       SRS:'EPSG:4326',
@@ -50,8 +49,6 @@ function addWmsLayer(){
       HEIGHT:256,
     },
   });
-
-
   const wmsLayer = new TileLayer({
     source
   });
